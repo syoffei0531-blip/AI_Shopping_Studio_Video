@@ -85,14 +85,12 @@ def create_video():
         # n8nからファイル受信
         # -----------------------
 
-        image1 = request.files["image1"]
-        image2 = request.files["image2"]
-        image3 = request.files["image3"]
-        image4 = request.files["image4"]
-
+        product_image = request.files["product_image"]
         audio = request.files["audio"]
-        bgm = request.files["bgm"]
-        script = request.files["script"]
+
+        title = request.form.get("title")
+        description = request.form.get("description")
+        speech = request.form.get("speech")
         
         # -----------------------
         # 一時保存
