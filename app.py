@@ -112,6 +112,67 @@ def create_video():
         print("========================================")
 
         # ここから動画生成開始
+
+        # =====================================
+        # AI Shopping Studio Video Engine
+        # =====================================
+
+        output_path = "/tmp/video/output.mp4"
+
+        command = [
+            "ffmpeg",
+            "-y",
+
+            "-loop", "1",
+            "-i", image_path,
+
+            "-i", audio_path,
+
+            "-vf",
+            (
+                "scale=1080:1920:force_original_aspect_ratio=decrease,"
+                "pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black"
+            ),
+
+            "-c:v", "libx264",
+            "-preset", "ultrafast",
+            "-pix_fmt", "yuv420p",
+
+            "-c:a", "aac",
+
+            "-shortest",
+
+            output_path
+        ]
+
+        print("========== FFMPEG ==========")
+        print(" ".join(command))
+
+        result = subprocess.run(
+            command,
+            capture_output=True,
+            text=True
+        )
+
+        print(result.stdout)
+        print(result.stderr)
+
+        if result.returncode != 0:
+            return {
+                "error": "FFmpeg failed",
+                "stderr": result.stderr
+            }, 500
+
+        if not os.path.exists(output_path):
+            return {
+                "error": "output.mp4 not found"
+            }, 500
+
+        return send_file(
+            output_path,
+            mimetype="video/mp4",
+            as_attachment=False
+        )
         
        
     except Exception as e:
