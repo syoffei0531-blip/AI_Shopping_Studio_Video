@@ -98,9 +98,23 @@ def create_video():
         print("TITLE :", title)
         print("========================================")
 
+        os.makedirs("/tmp/video", exist_ok=True)
+
+        image_path = "/tmp/video/product.jpg"
+        audio_path = "/tmp/video/audio.mp3"
+
+        product_image.save(image_path)
+        audio.save(audio_path)
+
+        print("========== AI Shopping Studio ==========")
+        print("Image :", image_path)
+        print("Audio :", audio_path)
+        print("========================================")
+
         return {
             "success": True,
-            "message": "Data received"
+            "image_exists": os.path.exists(image_path),
+            "audio_exists": os.path.exists(audio_path)
         }
         
         # -----------------------
