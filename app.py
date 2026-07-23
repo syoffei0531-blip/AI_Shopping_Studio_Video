@@ -91,6 +91,17 @@ def create_video():
         title = request.form.get("title")
         description = request.form.get("description")
         speech = request.form.get("speech")
+
+        print("========== AI Shopping Studio ==========")
+        print("FILES :", list(request.files.keys()))
+        print("FORM  :", list(request.form.keys()))
+        print("TITLE :", title)
+        print("========================================")
+
+        return {
+            "success": True,
+            "message": "Data received"
+        }
         
         # -----------------------
         # 一時保存
