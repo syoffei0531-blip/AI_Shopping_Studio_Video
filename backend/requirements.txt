@@ -1,1 +1,7 @@
-
+Flask
+gunicorn
+requests
+Pillow
+moviepy
+opencv-python-headless
+numpy
