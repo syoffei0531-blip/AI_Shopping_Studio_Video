@@ -3,6 +3,7 @@ import subprocess
 import os
 import requests
 import json
+from engines.video_composer import VideoComposer
 
 app = Flask(__name__)
 
