@@ -107,6 +107,8 @@ def create_video():
         product_image.save(image_path)
         audio.save(audio_path)
 
+        composer = VideoComposer()
+
         print("========== AI Shopping Studio ==========")
         print("Image :", image_path)
         print("Audio :", audio_path)
