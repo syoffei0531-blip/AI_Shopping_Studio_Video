@@ -122,49 +122,11 @@ def create_video():
 
         output_path = "/tmp/video/output.mp4"
 
-        command = [
-            "ffmpeg",
-            "-y",
-
-            "-loop", "1",
-            "-i", image_path,
-
-            "-i", audio_path,
-
-            "-vf",
-            (
-                "scale=1080:1920:force_original_aspect_ratio=decrease,"
-                "pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black"
-            ),
-
-            "-c:v", "libx264",
-            "-preset", "ultrafast",
-            "-pix_fmt", "yuv420p",
-
-            "-c:a", "aac",
-
-            "-shortest",
-
-            output_path
-        ]
-
-        print("========== FFMPEG ==========")
-        print(" ".join(command))
-
-        result = subprocess.run(
-            command,
-            capture_output=True,
-            text=True
+        output_path = composer.create_video(
+            image_path=image_path,
+            audio_path=audio_path,
+            output_path=output_path
         )
-
-        print(result.stdout)
-        print(result.stderr)
-
-        if result.returncode != 0:
-            return {
-                "error": "FFmpeg failed",
-                "stderr": result.stderr
-            }, 500
 
         if not os.path.exists(output_path):
             return {
@@ -176,19 +138,6 @@ def create_video():
             mimetype="video/mp4",
             as_attachment=False
         )
-        
-       
-    except Exception as e:
-        import traceback
-
-        print("========== ERROR ==========")
-        print(traceback.format_exc())
-        print("===========================")
-
-        return {
-            "error": str(e),
-            "traceback": traceback.format_exc()
-            }, 500
     
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
