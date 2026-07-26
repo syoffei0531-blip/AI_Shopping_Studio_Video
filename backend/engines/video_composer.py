@@ -16,6 +16,8 @@ class VideoComposer:
         output_path,
     ):
 
+        temp_product = "/tmp/product.mp4"
+        
         # ---------- 素材 ----------
         op = self.asset.get_op()
         ed = self.asset.get_ed()
@@ -59,7 +61,7 @@ class VideoComposer:
 
             "-shortest",
 
-            str(output_path)
+            temp_product
         ]
 
         print("========== FFMPEG ==========")
@@ -76,5 +78,41 @@ class VideoComposer:
 
         if result.returncode != 0:
             raise Exception(result.stderr)
+
+        # -----------------------------
+        # OP + 商品 + ED を結合
+        # -----------------------------
+
+        concat_file = "/tmp/concat.txt"
+
+        with open(concat_file, "w", encoding="utf-8") as f:
+            f.write(f"file '{op}'\n")
+            f.write(f"file '{temp_product}'\n")
+            f.write(f"file '{ed}'\n")
+
+        concat_command = [
+            "ffmpeg",
+            "-y",
+            "-f", "concat",
+            "-safe", "0",
+            "-i", concat_file,
+            "-c", "copy",
+            str(output_path)
+        ]
+
+        print("========== CONCAT ==========")
+        print(" ".join(concat_command))
+
+        concat_result = subprocess.run(
+            concat_command,
+            capture_output=True,
+            text=True
+        )
+
+        print(concat_result.stdout)
+        print(concat_result.stderr)
+
+        if concat_result.returncode != 0:
+            raise Exception(concat_result.stderr)
 
         return output_path
