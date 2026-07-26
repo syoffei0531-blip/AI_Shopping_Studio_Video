@@ -12,6 +12,7 @@ class VideoComposer:
         self,
         image_path,
         audio_path,
+        subtitle_path,
         output_path,
     ):
 
