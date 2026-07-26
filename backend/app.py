@@ -92,7 +92,8 @@ def create_video():
         title = request.form.get("title")
         description = request.form.get("description")
         speech = request.form.get("speech")
-
+        subtitle = request.form.get("subtitle")
+        
         print("========== AI Shopping Studio ==========")
         print("FILES :", list(request.files.keys()))
         print("FORM  :", list(request.form.keys()))
@@ -106,6 +107,11 @@ def create_video():
 
         product_image.save(image_path)
         audio.save(audio_path)
+
+        subtitle_path = "/tmp/video/subtitle.srt"
+
+        with open(subtitle_path, "w", encoding="utf-8") as f:
+            f.write(subtitle)
 
         composer = VideoComposer()
 
@@ -125,6 +131,7 @@ def create_video():
         output_path = composer.create_video(
             image_path=image_path,
             audio_path=audio_path,
+            subtitle_path=subtitle_path,
             output_path=output_path
         )
 
