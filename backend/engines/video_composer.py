@@ -32,6 +32,8 @@ class VideoComposer:
         print("商品紹介 :", product_intro)
 
         # ---------- 動画生成 ----------
+        subtitle_filter = subtitle_path.replace("\\", "/")
+        
         command = [
             "ffmpeg",
             "-y",
@@ -43,8 +45,10 @@ class VideoComposer:
 
             "-vf",
             (
+        
                 "scale=1080:1920:force_original_aspect_ratio=decrease,"
-                "pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black"
+                "pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,"
+                f"subtitles='{subtitle_filter}'"
             ),
 
             "-c:v", "libx264",
