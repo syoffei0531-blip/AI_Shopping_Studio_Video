@@ -1,7 +1,7 @@
 import subprocess
 
 from engines.asset_engine import AssetEngine
-
+from pathlib import Path
 
 class VideoComposer:
 
@@ -27,6 +27,10 @@ class VideoComposer:
         product_intro = self.asset.get_sfx("product_intro.mp3")
 
         print("========== ASSETS ==========")
+        print("Assets Root:", self.asset.assets)
+        print("OP:", op)
+        print("ED:", ed)
+        print("Current Dir:", Path.cwd())
         print("OP :", op)
         print("ED :", ed)
         print("拍手 :", applause)
