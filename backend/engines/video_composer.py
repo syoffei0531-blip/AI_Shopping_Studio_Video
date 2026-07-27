@@ -6,6 +6,7 @@ from pathlib import Path
 class VideoComposer:
 
     def __init__(self):
+        print("★★★★★ VIDEO_COMPOSER VERSION B ★★★★★")
         self.asset = AssetEngine()
 
     def create_video(
