@@ -60,14 +60,11 @@ class VideoComposer:
                 f"subtitles='{subtitle_filter}'"
             ),
 
-            "-c", "copy",
-            
+            "-c:v", "libx264",
+            "-preset", "medium",
             "-pix_fmt", "yuv420p",
-
             "-c:a", "aac",
-
             "-r", "30",
-
             "-shortest",
 
             temp_product
