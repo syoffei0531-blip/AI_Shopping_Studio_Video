@@ -110,6 +110,7 @@ class VideoComposer:
         ]
 
         print("========== CONCAT ==========")
+        print("CONCAT MODE = COPY")
         print(" ".join(concat_command))
 
         concat_result = subprocess.run(
