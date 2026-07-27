@@ -104,9 +104,13 @@ class VideoComposer:
             "-safe", "0",
             "-i", concat_file,
 
-            "-c", "copy",
+            "-c:v", "libx264",
+            "-preset", "medium",
+            "-pix_fmt", "yuv420p",
+            "-c:a", "aac",
+            "-r", "30",
 
-            str(output_path)
+        str(output_path)
         ]
 
         print("========== CONCAT ==========")
