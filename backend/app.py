@@ -140,6 +140,9 @@ def create_video():
                 "error": "output.mp4 not found"
             }, 500
 
+        print("OUTPUT EXISTS:", os.path.exists(output_path))
+        print("OUTPUT SIZE:", os.path.getsize(output_path))
+
         return send_file(
             output_path,
             mimetype="video/mp4",
