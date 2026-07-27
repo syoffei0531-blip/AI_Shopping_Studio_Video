@@ -112,6 +112,15 @@ class VideoComposer:
             str(output_path)
         ]
 
+        print("========== CONCAT ==========")
+        print(" ".join(concat_command))
+
+        concat_result = subprocess.run(
+            concat_command,
+            capture_output=True,
+            text=True
+        )
+
         print(concat_result.stdout)
         print(concat_result.stderr)
 
