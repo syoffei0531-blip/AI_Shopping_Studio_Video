@@ -86,6 +86,20 @@ class VideoComposer:
         if result.returncode != 0:
             raise Exception(result.stderr)
 
+        probe = subprocess.run(
+            [
+                "ffprobe",
+                "-v", "error",
+                "-show_entries", "format=duration",
+                "-of", "default=noprint_wrappers=1:nokey=1",
+                temp_product
+            ],
+            capture_output=True,
+            text=True
+        )
+
+        print("PRODUCT DURATION =", probe.stdout)
+
         # -----------------------------
         # OP + 商品 + ED を結合
         # -----------------------------
