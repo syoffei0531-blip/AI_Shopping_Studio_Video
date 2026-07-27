@@ -60,8 +60,8 @@ class VideoComposer:
                 f"subtitles='{subtitle_filter}'"
             ),
 
-            "-c:v", "libx264",
-            "-preset", "medium",
+            "-c", "copy",
+            
             "-pix_fmt", "yuv420p",
 
             "-c:a", "aac",
@@ -106,8 +106,7 @@ class VideoComposer:
             "-safe", "0",
             "-i", concat_file,
 
-            "-c:v", "libx264",
-            "-c:a", "aac",
+            "-c", "copy",
 
             str(output_path)
         ]
