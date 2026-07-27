@@ -45,23 +45,28 @@ class VideoComposer:
             "-y",
 
             "-loop", "1",
+            "-framerate", "30",
             "-i", str(image_path),
 
             "-i", str(audio_path),
 
+            "-map", "0:v:0",
+            "-map", "1:a:0",
+
             "-vf",
             (
-        
                 "scale=1080:1920:force_original_aspect_ratio=decrease,"
                 "pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,"
                 f"subtitles='{subtitle_filter}'"
             ),
 
             "-c:v", "libx264",
-            "-preset", "ultrafast",
+            "-preset", "medium",
             "-pix_fmt", "yuv420p",
 
             "-c:a", "aac",
+
+            "-r", "30",
 
             "-shortest",
 
@@ -100,18 +105,12 @@ class VideoComposer:
             "-f", "concat",
             "-safe", "0",
             "-i", concat_file,
-            "-c", "copy",
+
+            "-c:v", "libx264",
+            "-c:a", "aac",
+
             str(output_path)
         ]
-
-        print("========== CONCAT ==========")
-        print(" ".join(concat_command))
-
-        concat_result = subprocess.run(
-            concat_command,
-            capture_output=True,
-            text=True
-        )
 
         print(concat_result.stdout)
         print(concat_result.stderr)
