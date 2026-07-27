@@ -6,7 +6,7 @@ class AssetEngine:
     def __init__(self):
 
         # assetsフォルダ
-        self.assets = Path(__file__).resolve().parents[2] / "assets"
+        self.assets = Path(__file__).resolve().parents[1] / "assets"
 
         self.bgm = self.assets / "bgm"
         self.sfx = self.assets / "sfx"
