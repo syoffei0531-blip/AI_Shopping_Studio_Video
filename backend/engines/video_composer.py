@@ -118,7 +118,8 @@ class VideoComposer:
             capture_output=True,
             text=True
         )
-
+        
+        print("CONCAT FINISHED")
         print(concat_result.stdout)
         print(concat_result.stderr)
 
