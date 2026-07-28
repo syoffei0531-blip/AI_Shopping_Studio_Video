@@ -108,7 +108,7 @@ class VideoComposer:
         # -----------------------------
 
         intro = VideoFileClip(str(op))
-        studio = VideoFileClip(str(studio_path))
+        studio = VideoFileClip(str(self.asset.get_studio()))
         product = VideoFileClip(str(temp_product))
         outro = VideoFileClip(str(ed))
 
