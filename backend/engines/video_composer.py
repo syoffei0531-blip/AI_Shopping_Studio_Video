@@ -23,7 +23,6 @@ class VideoComposer:
         
         # ---------- 素材 ----------
         op = self.asset.get_op()
-        studio_path = self.asset.get_studio()
         ed = self.asset.get_ed()
 
         applause = self.asset.get_sfx("applause.mp3")
@@ -108,7 +107,6 @@ class VideoComposer:
         # -----------------------------
 
         intro = VideoFileClip(str(op))
-        studio = VideoFileClip(str(studio_path))
         product = VideoFileClip(str(temp_product))
         outro = VideoFileClip(str(ed))
 
@@ -130,7 +128,6 @@ class VideoComposer:
         )
 
         intro.close()
-        studio.close()
         product.close()
         outro.close()
         final.close()
