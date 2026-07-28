@@ -10,6 +10,7 @@ class AssetEngine:
 
         self.bgm = self.assets / "bgm"
         self.sfx = self.assets / "sfx"
+        self.studio = self.assets / "studio"
         self.op = self.assets / "op"
         self.ed = self.assets / "ed"
         self.logo = self.assets / "logo"
@@ -33,6 +34,12 @@ class AssetEngine:
     # -------------------
     def get_op(self, filename="intro.mp4"):
         return self.op / filename
+
+    # ------------------------
+    # Studio
+    # ------------------------
+    def get_studio(self, filename="studio.mp4"):
+        return self.assets / "studio" / filename
 
     # -------------------
     # ED
