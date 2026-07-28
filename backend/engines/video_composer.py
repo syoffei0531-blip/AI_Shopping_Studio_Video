@@ -86,6 +86,14 @@ class VideoComposer:
         if result.returncode != 0:
             raise Exception(result.stderr)
 
+        print("PRODUCT CREATED")
+
+        subprocess.run([
+            "ffmpeg",
+            "-i",
+            temp_product
+        ])
+    try:
         probe = subprocess.run(
             [
                 "ffprobe",
@@ -97,7 +105,9 @@ class VideoComposer:
             capture_output=True,
             text=True
         )
-
+    except Exception as e:
+        
+        print("FFPROBE ERROR:", e)
         print("PRODUCT DURATION =", probe.stdout)
 
         # -----------------------------
@@ -135,7 +145,7 @@ class VideoComposer:
         ]
 
         print("========== CONCAT ==========")
-        print("CONCAT MODE = COPY")
+        print("CONCAT MODE = ENCODE")
         print(" ".join(concat_command))
 
         concat_result = subprocess.run(
@@ -151,4 +161,4 @@ class VideoComposer:
         if concat_result.returncode != 0:
             raise Exception(concat_result.stderr)
 
-        return temp_product
+        return output_path
