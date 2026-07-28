@@ -113,7 +113,6 @@ class VideoComposer:
         final = concatenate_videoclips(
             [
                 intro,
-                studio,
                 product,
                 outro
             ],
