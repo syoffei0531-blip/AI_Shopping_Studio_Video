@@ -88,27 +88,17 @@ class VideoComposer:
 
         print("PRODUCT CREATED")
 
-        subprocess.run([
-            "ffmpeg",
-            "-i",
-            temp_product
-        ])
-    try:
         probe = subprocess.run(
             [
-                "ffprobe",
-                "-v", "error",
-                "-show_entries", "format=duration",
-                "-of", "default=noprint_wrappers=1:nokey=1",
+                "ffmpeg",
+                "-i",
                 temp_product
             ],
             capture_output=True,
             text=True
         )
-    except Exception as e:
-        
-        print("FFPROBE ERROR:", e)
-        print("PRODUCT DURATION =", probe.stdout)
+
+        print(probe.stderr)
 
         # -----------------------------
         # OP + 商品 + ED を結合
