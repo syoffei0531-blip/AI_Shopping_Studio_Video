@@ -119,13 +119,9 @@ class VideoComposer:
             "ffmpeg",
             "-y",
 
-            "-fflags", "+genpts",
-
             "-f", "concat",
             "-safe", "0",
             "-i", concat_file,
-
-            "-vsync", "vfr",
 
             "-c:v", "libx264",
             "-preset", "medium",
