@@ -16,6 +16,7 @@ class VideoComposer:
         image_path,
         audio_path,
         subtitle_path,
+        studio_path,
         output_path,
     ):
 
@@ -107,12 +108,14 @@ class VideoComposer:
         # -----------------------------
 
         intro = VideoFileClip(str(op))
+        studio = VideoFileClip(str(studio_path))
         product = VideoFileClip(str(temp_product))
         outro = VideoFileClip(str(ed))
 
         final = concatenate_videoclips(
             [
                 intro,
+                studio,
                 product,
                 outro
             ],
@@ -127,6 +130,7 @@ class VideoComposer:
         )
 
         intro.close()
+        studio.close()
         product.close()
         outro.close()
         final.close()
