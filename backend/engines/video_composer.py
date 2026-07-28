@@ -114,17 +114,24 @@ class VideoComposer:
         concat_command = [
             "ffmpeg",
             "-y",
+
+            "-fflags", "+genpts",
+
             "-f", "concat",
             "-safe", "0",
             "-i", concat_file,
 
+            "-vsync", "vfr",
+
             "-c:v", "libx264",
             "-preset", "medium",
             "-pix_fmt", "yuv420p",
-            "-c:a", "aac",
-            "-r", "30",
 
-        str(output_path)
+            "-c:a", "aac",
+
+            "-movflags", "+faststart",
+
+            str(output_path)
         ]
 
         print("========== CONCAT ==========")
