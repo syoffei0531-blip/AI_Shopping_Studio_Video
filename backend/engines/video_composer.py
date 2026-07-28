@@ -151,4 +151,4 @@ class VideoComposer:
         if concat_result.returncode != 0:
             raise Exception(concat_result.stderr)
 
-        return output_path
+        return temp_product
