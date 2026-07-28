@@ -88,7 +88,8 @@ def create_video():
 
         product_image = request.files["product_image"]
         audio = request.files["audio"]
-
+        studio = request.files["studio"]
+        
         title = request.form.get("title")
         description = request.form.get("description")
         speech = request.form.get("speech")
@@ -104,9 +105,11 @@ def create_video():
 
         image_path = "/tmp/video/product.jpg"
         audio_path = "/tmp/video/audio.mp3"
+        studio_path = "/tmp/video/studio.mp4"
 
         product_image.save(image_path)
         audio.save(audio_path)
+        studio.save(studio_path)
 
         subtitle_path = "/tmp/video/subtitle.srt"
 
@@ -116,8 +119,9 @@ def create_video():
         composer = VideoComposer()
 
         print("========== AI Shopping Studio ==========")
-        print("Image :", image_path)
-        print("Audio :", audio_path)
+        print("Image  :", image_path)
+        print("Audio  :", audio_path)
+        print("Studio :", studio_path)
         print("========================================")
 
         # ここから動画生成開始
@@ -131,6 +135,7 @@ def create_video():
         output_path = composer.create_video(
             image_path=image_path,
             audio_path=audio_path,
+            studio_path=studio_path,
             subtitle_path=subtitle_path,
             output_path=output_path
         )
