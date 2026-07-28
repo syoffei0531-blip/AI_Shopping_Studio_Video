@@ -65,7 +65,7 @@ class VideoComposer:
             "-preset", "medium",
             "-pix_fmt", "yuv420p",
             "-c:a", "aac",
-            "-r", "30",
+    
             "-shortest",
 
             temp_product
