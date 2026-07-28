@@ -111,6 +111,10 @@ class VideoComposer:
             f.write(f"file '{temp_product}'\n")
             f.write(f"file '{ed}'\n")
 
+        print(op)
+        print(temp_product)
+        print(ed) 
+        
         concat_command = [
             "ffmpeg",
             "-y",
@@ -151,4 +155,4 @@ class VideoComposer:
         if concat_result.returncode != 0:
             raise Exception(concat_result.stderr)
 
-        return temp_product
+        return output_path
