@@ -118,7 +118,6 @@ def create_video():
         print("========== AI Shopping Studio ==========")
         print("Image  :", image_path)
         print("Audio  :", audio_path)
-        print("Studio :", studio_path)
         print("========================================")
 
         # ここから動画生成開始
@@ -132,7 +131,6 @@ def create_video():
         output_path = composer.create_video(
             image_path=image_path,
             audio_path=audio_path,
-            studio_path=studio_path,
             subtitle_path=subtitle_path,
             output_path=output_path
         )
