@@ -88,7 +88,6 @@ def create_video():
 
         product_image = request.files["product_image"]
         audio = request.files["audio"]
-        studio = request.files["studio"]
         
         title = request.form.get("title")
         description = request.form.get("description")
@@ -105,11 +104,9 @@ def create_video():
 
         image_path = "/tmp/video/product.jpg"
         audio_path = "/tmp/video/audio.mp3"
-        studio_path = "/tmp/video/studio.mp4"
-
+        
         product_image.save(image_path)
         audio.save(audio_path)
-        studio.save(studio_path)
 
         subtitle_path = "/tmp/video/subtitle.srt"
 
