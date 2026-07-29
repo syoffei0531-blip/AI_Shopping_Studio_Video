@@ -16,7 +16,6 @@ class VideoComposer:
         image_path,
         audio_path,
         subtitle_path,
-        studio_path,
         output_path,
     ):
 
@@ -111,7 +110,6 @@ class VideoComposer:
         studio = VideoFileClip(str(self.asset.get_studio()))
         product = VideoFileClip(str(temp_product))
         outro = VideoFileClip(str(ed))
-
         final = concatenate_videoclips(
             [
                 intro,
