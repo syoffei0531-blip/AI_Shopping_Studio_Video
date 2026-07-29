@@ -38,7 +38,7 @@ class AssetEngine:
     # ------------------------
     # Studio
     # ------------------------
-    def get_studio(self, filename="studio.mp4"):
+    def get_studio(self, filename="studio.png"):
         return self.assets / "studio" / filename
 
     # -------------------
