@@ -1,6 +1,6 @@
 import subprocess
 
-from moviepy import VideoFileClip, concatenate_videoclips
+from moviepy import VideoFileClip, ImageClip, concatenate_videoclips
 
 from engines.asset_engine import AssetEngine
 from pathlib import Path
@@ -107,9 +107,13 @@ class VideoComposer:
         # -----------------------------
 
         intro = VideoFileClip(str(op))
+        
         studio = VideoFileClip(str(self.asset.get_studio()))
+        studio = studio.with_duration(5)
+
         product = VideoFileClip(str(temp_product))
         outro = VideoFileClip(str(ed))
+        
         final = concatenate_videoclips(
             [
                 intro,
