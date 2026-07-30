@@ -24,6 +24,7 @@ class VideoComposer:
         # ---------- 素材 ----------
         op = self.asset.get_op()
         ed = self.asset.get_ed()
+        studio_bg = self.asset.get_studio()
 
         applause = self.asset.get_sfx("applause.mp3")
         amazing = self.asset.get_sfx("amazing.mp3")
@@ -108,16 +109,12 @@ class VideoComposer:
 
         intro = VideoFileClip(str(op))
         
-        studio = ImageClip(str(self.asset.get_studio()))
-        studio = studio.with_duration(5)
-
         product = VideoFileClip(str(temp_product))
         outro = VideoFileClip(str(ed))
         
         final = concatenate_videoclips(
             [
                 intro,
-                studio,
                 product,
                 outro
             ],
@@ -132,7 +129,6 @@ class VideoComposer:
         )
 
         intro.close()
-        studio.close()
         product.close()
         outro.close()
         final.close()
