@@ -1,6 +1,11 @@
 import subprocess
 
-from moviepy import VideoFileClip, ImageClip, concatenate_videoclips
+from moviepy import (
+    VideoFileClip,
+    ImageClip,
+    CompositeVideoClip,
+    concatenate_videoclips,
+)
 
 from engines.asset_engine import AssetEngine
 from pathlib import Path
@@ -25,6 +30,8 @@ class VideoComposer:
         op = self.asset.get_op()
         ed = self.asset.get_ed()
         studio_bg = self.asset.get_studio()
+
+        print("Studio Background :", studio_bg)
 
         applause = self.asset.get_sfx("applause.mp3")
         amazing = self.asset.get_sfx("amazing.mp3")
@@ -58,11 +65,11 @@ class VideoComposer:
             "-map", "1:a:0",
 
             "-vf",
-            (
-                "scale=1080:1920:force_original_aspect_ratio=decrease,"
-                "pad=1080:1920:(ow-iw)/2:(oh-ih)/2:black,"
-                f"subtitles='{subtitle_filter}'"
-            ),
+        (
+            "scale=1080:1920:force_original_aspect_ratio=increase,"
+            "crop=1080:1920,"
+            f"subtitles='{subtitle_filter}'"
+        ),
 
             "-c:v", "libx264",
             "-preset", "medium",
@@ -108,14 +115,30 @@ class VideoComposer:
         # -----------------------------
 
         intro = VideoFileClip(str(op))
-        
+         
         product = VideoFileClip(str(temp_product))
+        product = product.with_position("center")
+        
+        studio = (
+            ImageClip(str(studio_bg))
+            .with_duration(product.duration)
+            .resized((1080, 1920))
+        )
+        
+        product_scene = CompositeVideoClip(
+            [
+                studio,
+                product
+            ],
+            size=(1080, 1920)
+        )
+        
         outro = VideoFileClip(str(ed))
         
         final = concatenate_videoclips(
             [
                 intro,
-                product,
+                product_scene,
                 outro
             ],
             method="compose"
@@ -130,6 +153,8 @@ class VideoComposer:
 
         intro.close()
         product.close()
+        studio.close()
+        product_scene.close()
         outro.close()
         final.close()
         
